@@ -8,7 +8,7 @@ class FileUploadSession(models.Model):
     is_complete = models.BooleanField(default=False)
     assembly_status = models.CharField(max_length=20, default='pending')  # pending, in_progress, completed, failed
     date_uploaded = models.DateTimeField(auto_now_add=True)  # Date of uploading
-
+    file_size = models.BigIntegerField()
     def __str__(self):
         return f'{self.file_name} ({self.session_id})'
 

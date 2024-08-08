@@ -3,7 +3,7 @@ from .models import FileUploadSession, FileChunk
 
 @admin.register(FileUploadSession)
 class FileUploadSessionAdmin(admin.ModelAdmin):
-    list_display = ('session_id', 'file_name', 'user_id', 'total_chunks', 'is_complete','date_uploaded')
+    list_display = ('session_id', 'file_name', 'user_id', 'total_chunks', 'is_complete','date_uploaded','file_size')
     search_fields = ('session_id', 'file_name', 'user_id')
     list_filter = ('is_complete',)
 

@@ -17,11 +17,21 @@ class UploadChunk(APIView):
         session_id = request.data['sessionId']
         chunk_number = request.data['chunkNumber']
         chunk = request.data['chunk']
+        file_name = request.data.get('fileName', '')
+        total_chunks = request.data.get('totalChunks', 0)
+        file_size = request.data.get('fileSize', 0)  # Get file size
 
         session, created = FileUploadSession.objects.get_or_create(
             session_id=session_id,
-            defaults={'file_name': request.data.get('fileName', ''), 'total_chunks': request.data.get('totalChunks')}
+            defaults={'file_name': file_name, 'total_chunks': total_chunks, 'file_size': file_size}
         )
+
+        if not created:
+            # Update the total_chunks, file_name, and file_size if they were not set initially
+            session.total_chunks = total_chunks
+            session.file_name = file_name
+            session.file_size = file_size
+            session.save()
 
         FileChunk.objects.create(session=session, chunk_number=chunk_number, chunk_data=chunk.read())
 
@@ -52,9 +62,10 @@ class ListCompletedUploads(APIView):
 
     def get(self, request):
         completed_uploads = FileUploadSession.objects.filter(is_complete=True).values(
-            'session_id', 'file_name', 'user_id', 'total_chunks', 'date_uploaded'
+            'session_id', 'file_name', 'user_id', 'total_chunks', 'date_uploaded', 'file_size' 
         )
         return Response(list(completed_uploads))
+
     
 @method_decorator(csrf_exempt, name='dispatch')
 class DeleteUpload(APIView):

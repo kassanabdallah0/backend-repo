@@ -89,8 +89,12 @@ WSGI_APPLICATION = 'mybackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'largefileupload',
+        'USER': 'abdallah',
+        'PASSWORD': '1230',
+        'HOST': 'localhost',  # Set to the appropriate hostname
+        'PORT': '5432',       # Default PostgreSQL port
     }
 }
 
@@ -151,7 +155,7 @@ LOGGING = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 

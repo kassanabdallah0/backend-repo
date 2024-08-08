@@ -6,6 +6,8 @@ class FileUploadSession(models.Model):
     user_id = models.CharField(max_length=100, blank=True, null=True)  # Optional user_id
     total_chunks = models.IntegerField(default=0)  # Total number of chunks expected
     is_complete = models.BooleanField(default=False)
+    assembly_status = models.CharField(max_length=20, default='pending')  # pending, in_progress, completed, failed
+    date_uploaded = models.DateTimeField(auto_now_add=True)  # Date of uploading
 
     def __str__(self):
         return f'{self.file_name} ({self.session_id})'

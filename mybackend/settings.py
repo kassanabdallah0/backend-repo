@@ -17,7 +17,6 @@ MEDIA_URL = '/media/'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-print("MEDIA_ROOT : ",MEDIA_ROOT)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -41,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-    'rest_framework',  # If you are using Django REST framework
-    'corsheaders',     # For handling CORS
+    'rest_framework',
+    'corsheaders', 
     'django_celery_results',
 ]
 
@@ -62,9 +61,6 @@ ROOT_URLCONF = 'mybackend.urls'
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
 ]
-
-# mybackend/settings.py
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -173,7 +169,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+result_backend  = 'redis://127.0.0.1:6379/0'
+accept_content  = ['json']
+task_serializer  = 'json'
+result_serializer  = 'json'

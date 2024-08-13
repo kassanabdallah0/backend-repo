@@ -1,20 +1,15 @@
 from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
-from django.conf import settings  # Import settings
+from django.conf import settings
 
-# Set the default Django settings module for the 'celery' program.
+# Définit le module de configuration par défaut de Django pour le programme 'celery'.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mybackend.settings')
 
 app = Celery('mybackend')
-
-# Using a string here means the worker doesn't have to serialize
-# the configuration object to child processes.
-# - namespace='CELERY' means all celery-related configuration keys
-#   should have a `CELERY_` prefix.
 app.config_from_object(settings, namespace='CELERY')
 
-# Load task modules from all registered Django app configs.
+# Charge les modules de tâches à partir de toutes les configurations d'applications Django enregistrées.
 app.autodiscover_tasks()
 
 @app.task(bind=True)

@@ -1,4 +1,3 @@
-EOL > README.md
 # Backend pour le Téléchargement de Fichiers Volumineux
 
 Ce projet est un backend développé avec Django, Celery, Redis, et PostgreSQL, conçu pour gérer le téléchargement de fichiers volumineux en plusieurs morceaux. Il supporte également l'assemblage des fichiers en arrière-plan.
@@ -32,57 +31,57 @@ Ce projet est un backend développé avec Django, Celery, Redis, et PostgreSQL, 
 
 ### 1. Cloner le Dépôt
 
-\`\`\`bash
+
 git clone https://github.com/kassanabdallah0/backend-repo.git
 cd backend-repo
-\`\`\`
+
 
 ### 2. Créer un Environnement Virtuel et Installer les Dépendances
 
-\`\`\`bash
+
 python -m venv venv
 source venv/bin/activate  # Sur Windows : \`venv\Scripts\activate\`
 pip install -r requirements.txt
-\`\`\`
+
 
 ### 3. Configurer PostgreSQL
 
 - Créez une base de données PostgreSQL et un utilisateur :
 
-\`\`\`sql
+
 CREATE DATABASE largefileupload;
 CREATE USER abdallah WITH PASSWORD '1230';
 ALTER ROLE abdallah SET client_encoding TO 'utf8';
 ALTER ROLE abdallah SET default_transaction_isolation TO 'read committed';
 ALTER ROLE abdallah SET timezone TO 'UTC';
 GRANT ALL PRIVILEGES ON DATABASE largefileupload TO abdallah;
-\`\`\`
+
 
 ### 4. Appliquer les Migrations
 
-\`\`\`bash
+
 python manage.py migrate
-\`\`\`
+
 
 ### 5. Créer un Superutilisateur
 
-\`\`\`bash
+
 python manage.py createsuperuser
-\`\`\`
+
 
 ### 6. Lancer le Serveur Django
 
-\`\`\`bash
+
 python manage.py runserver
-\`\`\`
+
 
 ### 7. Lancer Celery
 
 Pour traiter les tâches d'assemblage en arrière-plan, lancez Celery avec la commande suivante (sur Windows) :
 
-\`\`\`bash
+
 celery -A mybackend.celery worker --pool=solo -l info
-\`\`\`
+
 
 ## API Endpoints
 
